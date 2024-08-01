@@ -12,6 +12,7 @@ package org.javaacademy.core.homework;
  * Если знак операции не относится к перечисленным выше, вывести - "Ошибка"
  */
 
+import java.text.DecimalFormat;
 import java.util.Scanner;
 
 public class Calc {

@@ -1,7 +1,5 @@
 package org.javaacademy.core.homework;
 
-import java.math.BigDecimal;
-
 public class Homework1 {
 
     public static void main(String[] args) {
@@ -10,8 +8,6 @@ public class Homework1 {
         ex3();
         System.out.println("___________________________________________");
         ex4();
-        System.out.println("___________________________________________");
-        advanced();
     }
 
     public static void ex1() {
@@ -20,8 +16,14 @@ public class Homework1 {
     }
 
     public static void ex2() {
-
+        //Дана строка
         String name = "     ПЕтРов Олег Иванович     ";
+        //Необходимо
+        //1. убрать лишние пробелы,
+        //2. перевести текст в верхний регистр
+        //3. Если содержит "ова " то печатаем на экран: Уважаемая {name}
+        // Если содержит "ов " то печатаем на экран: Уважаемый {name}
+        // В иных случаях печатаем на экран: Неизвестное лицо {name}
 
         name = name.trim().toUpperCase();
         if (name.toLowerCase().contains("ова")) {
@@ -47,6 +49,9 @@ public class Homework1 {
         boolean isWheelWork3 = true;
         boolean isWheelWork4 = true;
 
+        //Поменять(убрать, поставить) логические операторы так, чтобы машина запускалась:
+        // когда топлива не меньше 10 литров, двигатель работает, колеса работают, нет ошибок
+        //В ином случае, машина не должна запускаться
         if (!(fuel < 10) && (isWheelWork1 && isWheelWork2 && isWheelWork3 && isWheelWork4)
                 || hasErrors && isEngineWork) {
             System.out.println("Машина едет");
@@ -56,11 +61,14 @@ public class Homework1 {
     }
 
     public static void ex4() {
+        //Работа на самостоятельное изучение функций класса String.
+        //Заменить в строке 'this is' на 'those are',
+        //получить индекс (число) второй буквы 'o' в строке. ПОЛУЧЕНИЕ ИНДЕКСА ЧЕРЕЗ ФУНКЦИЮ!
+        //Распечатать полученный индекс
         String simply = "this is simply. This is my favorite song.";
         System.out.println(simply.replaceAll("this is", "those are"));
 //      Если ещё надо поменять слово с заглавной буквой - This is, на Those are то:
-        System.out.println(simply.replace("this is", "those are")
-                .replace("This is", "Those are"));
+        System.out.println(simply.replace("this is", "those are").replace("This is", "Those are"));
         System.out.println(simply.lastIndexOf('o'));
     }
 
@@ -71,85 +79,42 @@ public class Homework1 {
 
 
     public static void advanced() {
+        //Задача №4
+        //Компания Рога и Копыта производит мясные продукты.
+        //Перечень производимых товаров :
+        //Колбаса - стоимость(цена) 800 руб,
+        //себестоимость при производстве меньше 1000 кг - 412руб,
+        //себестоимость при производстве от 1000 до 2000 (не включая) - 408 руб
+        //себестоимость при производстве от 2000 - 404 руб
 
-        BigDecimal sausagePrice = new BigDecimal("800");
-        BigDecimal costPriceSausageWeightLess1000kg = new BigDecimal("412");
-        BigDecimal costPriceSausageWeightBetween1000and2000kg = new BigDecimal("408");
-        BigDecimal costPriceSausageWeightEqualsOrMoreThan2000kg = new BigDecimal("404");
+        //Ветчина - стоимость 350 руб
+        //себестоимость при производстве - 275 руб
 
-        BigDecimal hamPrice = new BigDecimal("350");
-        BigDecimal costPriceHam = new BigDecimal("275");
+        //Шейка - стоимость 500 руб
+        //себестоимость при производстве меньше 500кг - 311 руб
+        //себестоимость при производстве больше или равно 500кг - 299 руб
 
-        BigDecimal meatNeckPrice = new BigDecimal("500");
-        BigDecimal costPriceMeatNeckWeightLess500kg = new BigDecimal("311");
-        BigDecimal costPriceMeatNeckWeightEqualOrMoreThan500kg = new BigDecimal("299");
+        //Финансовые показатели
+        //Доход компании считается как умножение стоимости на количество проданных кг
+        //Расход компании считается как умношение себестоимости на количество проданных кг + миллион рублей
+        //Прибыль до налогов считается как: доход - расход
+        //Налоги считаются так:
+        // прибыль до налогов больше 2_000_000, облагается ставкой 13%
+        // прибыль до налогов больше 1_000_000 до 2_000_000, облагается ставкой 10%
+        // прибыль до налогов до 1_000_000 (включительно), облагается ставкой 8%
+        //пример расчета налогов для прибыли до налогов 2_500_000:
+        //1_000_000 - налог 80_000 - по ставке 8%
+        //1_000_000 - налог 100_000 - по ставке 10%
+        //500_000 - 65_000 - по ставке 13%
+        //Итоговый налог: 80_000 + 100_000 + 65_000 = 245_000
+        //Прибыль после налогов: прибыль до налогов - налог.
 
-        BigDecimal sausageWeight = new BigDecimal("2000");
-        BigDecimal hamWeight = new BigDecimal("8511");
-        BigDecimal meatNeckWeight = new BigDecimal("6988");
-
-        BigDecimal income = sausagePrice.multiply(sausageWeight).add(hamPrice.multiply(hamWeight)
-                .add(meatNeckPrice.multiply(meatNeckWeight)));
-        System.out.println("Доход компании: " + income);
-
-        BigDecimal expenses;
-
-        if (sausageWeight.doubleValue() < 1000 && meatNeckWeight.doubleValue() < 500) {
-            expenses = costPriceSausageWeightLess1000kg.multiply(sausageWeight)
-                    .add(costPriceHam.multiply(hamWeight)
-                            .add(costPriceMeatNeckWeightLess500kg.multiply(meatNeckWeight)));
-        } else if (sausageWeight.doubleValue() >= 1000 && sausageWeight.doubleValue() < 2000
-                && meatNeckWeight.doubleValue() < 500) {
-            expenses = costPriceSausageWeightBetween1000and2000kg.multiply(sausageWeight)
-                    .add(costPriceHam.multiply(hamWeight).
-                            add(costPriceMeatNeckWeightLess500kg.multiply(meatNeckWeight)));
-        } else if (sausageWeight.doubleValue() > 2000 && meatNeckWeight.doubleValue() < 500) {
-            expenses = costPriceSausageWeightEqualsOrMoreThan2000kg.multiply(sausageWeight)
-                    .add(costPriceHam.multiply(hamWeight).
-                            add(costPriceMeatNeckWeightLess500kg.multiply(meatNeckWeight)));
-        } else if ((sausageWeight.doubleValue() < 1000 && meatNeckWeight.doubleValue() > 500)) {
-            expenses = costPriceSausageWeightLess1000kg.multiply(sausageWeight)
-                    .add(costPriceHam.multiply(hamWeight)
-                            .add(costPriceMeatNeckWeightEqualOrMoreThan500kg.multiply(meatNeckWeight)));
-        } else if (sausageWeight.doubleValue() >= 1000 && sausageWeight.doubleValue() < 2000
-                && meatNeckWeight.doubleValue() > 500) {
-            expenses = costPriceSausageWeightBetween1000and2000kg.multiply(sausageWeight)
-                    .add(costPriceHam.multiply(hamWeight).
-                            add(costPriceMeatNeckWeightEqualOrMoreThan500kg.multiply(meatNeckWeight)));
-        } else {
-            expenses = costPriceSausageWeightEqualsOrMoreThan2000kg.multiply(sausageWeight)
-                    .add(costPriceHam.multiply(hamWeight)
-                            .add(costPriceMeatNeckWeightEqualOrMoreThan500kg.multiply(meatNeckWeight)));
-        }
-        System.out.println("Расход компании: " + expenses);
-
-        BigDecimal profitBeforeTaxes = income.subtract(expenses);
-        System.out.println("Прибыль до налогов: " + profitBeforeTaxes);
-
-        BigDecimal percentRate13 = new BigDecimal("13");
-        BigDecimal percentRate10 = new BigDecimal("10");
-        BigDecimal percentRate8 = new BigDecimal("8");
-
-        BigDecimal hundredPercent = new BigDecimal("100");
-
-        BigDecimal amount2_000_000 = new BigDecimal("2000000");
-        BigDecimal amount1_000_000 = new BigDecimal("1000000");
-
-        BigDecimal taxes;
-
-        if (profitBeforeTaxes.compareTo(amount2_000_000) > 0) {
-            taxes = profitBeforeTaxes.subtract(amount2_000_000).divide(hundredPercent).multiply(percentRate13)
-                    .add(amount1_000_000.divide(hundredPercent).multiply(percentRate10))
-                    .add(amount1_000_000.divide(hundredPercent).multiply(percentRate8));
-            System.out.println("Налоги: " + taxes);
-        } else if (profitBeforeTaxes.compareTo(amount2_000_000) < 0 && profitBeforeTaxes.compareTo(amount1_000_000) > 0)
-        {
-            taxes = profitBeforeTaxes.subtract(amount1_000_000).divide(hundredPercent).multiply(percentRate10)
-                    .add(amount1_000_000.divide(hundredPercent).multiply(percentRate8));
-            System.out.println("Налоги: " + taxes);
-        } else if (profitBeforeTaxes.compareTo(amount1_000_000) < 0) {
-            taxes = profitBeforeTaxes.divide(hundredPercent).multiply(percentRate8);
-            System.out.println("Налоги: " + taxes);
-        }
+        //Необходимо создать универсальную систему расчетов прибыли после налогов,
+        //Т.е на вход подаются данные по количеству произведенных продуктов
+        // и печатается прибыль после налогов компании
+        //Узнать прибыль после налогов, при продаже:
+        //Колбасы 2000кг - это произведено и продано
+        //Ветчины 8511кг - это произведено и продано
+        //Шейки 6988кг - это произведено и продано
     }
 }

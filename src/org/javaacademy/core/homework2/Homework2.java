@@ -44,18 +44,10 @@ public class Homework2 {
             for (int j = 0; j < arrayOfNumbers.length; j++) {
                 if (i == j) {
                     leftUpToRightDownSum += arrayOfNumbers[i][j];
+                    leftDownToRightUpSum += arrayOfNumbers[arrayOfNumbers.length - i - 1][j];
                 }
             }
         }
-
-        for (int i = arrayOfNumbers.length - 1; i >= 0; i--) {
-            for (int j = 0; j < arrayOfNumbers.length; j++) {
-                if ((i == arrayOfNumbers.length - 1 - j) && (j == arrayOfNumbers.length - i - 1)) {
-                    leftDownToRightUpSum += arrayOfNumbers[i][j];
-                }
-            }
-        }
-
         System.out.println(leftUpToRightDownSum + " " + leftDownToRightUpSum);
     }
 
@@ -92,6 +84,7 @@ public class Homework2 {
         //Секретаря.
         //Создать офис
         //Запустить рабочий день в офисе
+
     }
 
     /**

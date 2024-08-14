@@ -29,5 +29,4 @@ public final class City {
         sb.append('}');
         return sb.toString();
     }
-
 }

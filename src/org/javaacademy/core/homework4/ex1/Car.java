@@ -1,12 +1,11 @@
 package org.javaacademy.core.homework4.ex1;
 
-public class Car {
+public abstract class Car {
 
-    private boolean isDirty;
-    private double width;
-    private double height;
-    private double length;
-
+    protected boolean isDirty;
+    protected double width;
+    protected double height;
+    protected double length;
 
     public Car(boolean isDirty, double width, double height, double length) {
         this.isDirty = isDirty;
@@ -14,15 +13,6 @@ public class Car {
         this.height = height;
         this.length = length;
     }
-
-    private final static double LENGTH = 6;
-    private final static double HEIGHT = 2.5;
-    private final static double WIDTH = 2;
-
-    public TypeOfCar category() {
-        return (length > LENGTH || height > HEIGHT || width > WIDTH) ? TypeOfCar.BIG_CAR : TypeOfCar.SMALL_CAR;
-    }
-
 
     public double getHeight() {
         return height;

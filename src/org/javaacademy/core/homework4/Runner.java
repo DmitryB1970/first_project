@@ -1,9 +1,9 @@
 package org.javaacademy.core.homework4;
 
-import org.javaacademy.core.homework4.ex1.AutomobileCar;
 import org.javaacademy.core.homework4.ex1.Bus;
 import org.javaacademy.core.homework4.ex1.Car;
 import org.javaacademy.core.homework4.ex1.CarWash;
+import org.javaacademy.core.homework4.ex1.LightCar;
 import org.javaacademy.core.homework4.ex2.Airplane;
 import org.javaacademy.core.homework4.ex2.Duck;
 import org.javaacademy.core.homework4.ex2.FlyException;
@@ -29,19 +29,31 @@ public class Runner {
         ex4();   // сделал не до конца
     }
 
+    @SuppressWarnings("checkstyle:Indentation")
     public static void ex1() {
 
-        Car automobileCar = new AutomobileCar(true, 1.8, 2, 5, true);
-        Car bus = new Bus(true, 2.3, 3, 12, 40);
+        Car[] lightCar = {
+                new LightCar(true, 1.8, 2, 5, true),
+                new LightCar(true, 1.8, 2, 5, true),
+                new LightCar(true, 1.8, 2, 5, true),
+                new LightCar(true, 1.8, 2, 5, true)
+        };
+        Car[] bus = {
+                new Bus(true, 2.3, 3, 12, 40),
+                new Bus(true, 2.3, 3, 12, 40),
+                new Bus(true, 2.3, 3, 12, 40),
+                new Bus(true, 2.3, 3, 12, 40),
+                new Bus(true, 2.3, 3, 12, 40),
+        };
         CarWash carWash = new CarWash();
-        System.out.println("Категория легкового автомобиля: " + automobileCar.category());
-        System.out.println("Категория автобуса: " + bus.category());
-        System.out.println("Стоимость мойки одного легкового автомобиля: " + carWash.costOneWashCar(automobileCar));
-        System.out.println("Стоимость мойки одного автобуса: " + carWash.costOneWashCar(bus));
-        BigDecimal automobileCarsCost = carWash.costForAllWashCars(automobileCar, 4);
-        BigDecimal busCost = carWash.costForAllWashCars(bus, 5);
-        BigDecimal totalCost = automobileCarsCost.add(busCost);
-        System.out.println("Общая стоимость мойки всех машин: " + totalCost);
+        System.out.println("Категория легкового автомобиля: " + carWash.category(lightCar[0]));
+        System.out.println("Категория автобуса: " + carWash.category(bus[0]));
+        System.out.println("Стоимость мойки одного легкового автомобиля: " + carWash.costOneWashCar(lightCar[0]));
+        System.out.println("Стоимость мойки одного автобуса: " + carWash.costOneWashCar(bus[0]));
+        BigDecimal lightCarsCost = carWash.costForAllWashCars(lightCar);
+        BigDecimal busCost = carWash.costForAllWashCars(bus);
+        BigDecimal allCarsWashCost = lightCarsCost.add(busCost);
+        System.out.println("Общая стоимость мойки всех машин: " + allCarsWashCost);
     }
 
     public static void ex2() {
@@ -77,15 +89,6 @@ public class Runner {
     }
 
     public static void ex3() {
-        //Задача №3 - Звук вокруг
-        //Человек умеет издавать звук: "Я человек." (возвращается строка и в след пунктах тоже)
-        //Строитель умеет издавать звук: "Я строитель." + звук из человека
-        //Водитель умеет издавать звук: "Я водитель." (водитель является человеком,
-        // но не использует его родительский метод)
-        //Птица умеет издавать звук: "Чирик"
-        //Сделать так, чтобы они все могли быть представлены к единому типу - "Издающий звук".
-        //Создать в этом методе человека, строителя, водителя и птицу. Запихнуть в единый массив.
-        //Пройтись по массиву и заставить их издать звуки.
 
         Soundable human = new Human();
         Soundable builder = new Builder();

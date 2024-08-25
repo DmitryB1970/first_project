@@ -1,21 +1,19 @@
 package org.javaacademy.core.homework4;
 
-import org.javaacademy.core.homework4.ex1.Bus;
-import org.javaacademy.core.homework4.ex1.Car;
-import org.javaacademy.core.homework4.ex1.CarWash;
-import org.javaacademy.core.homework4.ex1.LightCar;
+import org.javaacademy.core.homework4.ex1.car.Bus;
+import org.javaacademy.core.homework4.ex1.car.Car;
+import org.javaacademy.core.homework4.ex1.car.CarWashing;
+import org.javaacademy.core.homework4.ex1.car.LightCar;
 import org.javaacademy.core.homework4.ex2.Airplane;
 import org.javaacademy.core.homework4.ex2.Duck;
 import org.javaacademy.core.homework4.ex2.FlyException;
+import org.javaacademy.core.homework4.ex2.Flyable;
 import org.javaacademy.core.homework4.ex3.*;
-import org.javaacademy.core.homework4.ex4.animal.Elephant;
-import org.javaacademy.core.homework4.ex4.animal.Rabbit;
-import org.javaacademy.core.homework4.ex4.animal.Tiger;
-import org.javaacademy.core.homework4.ex4.animal.Wolf;
-import org.javaacademy.core.homework4.ex4.exception.AnimalCantAttackException;
-import org.javaacademy.core.homework4.ex4.exception.AnimalCantRunException;
-
-import java.math.BigDecimal;
+import org.javaacademy.core.homework4.ex4.animal.herbivore.Elephant;
+import org.javaacademy.core.homework4.ex4.animal.herbivore.Rabbit;
+import org.javaacademy.core.homework4.ex4.animal.predator.Tiger;
+import org.javaacademy.core.homework4.ex4.animal.predator.Wolf;
+import org.javaacademy.core.homework4.ex4.exception.ActionForDeadAliveException;
 
 public class Runner {
 
@@ -26,34 +24,26 @@ public class Runner {
         System.out.println("------------------------------------------------");
         ex3();
         System.out.println("------------------------------------------------");
-        ex4();   // сделал не до конца
+        ex4();
     }
 
-    @SuppressWarnings("checkstyle:Indentation")
+
     public static void ex1() {
 
-        Car[] lightCar = {
-                new LightCar(true, 1.8, 2, 5, true),
-                new LightCar(true, 1.8, 2, 5, true),
-                new LightCar(true, 1.8, 2, 5, true),
-                new LightCar(true, 1.8, 2, 5, true)
-        };
-        Car[] bus = {
-                new Bus(true, 2.3, 3, 12, 40),
-                new Bus(true, 2.3, 3, 12, 40),
-                new Bus(true, 2.3, 3, 12, 40),
-                new Bus(true, 2.3, 3, 12, 40),
-                new Bus(true, 2.3, 3, 12, 40),
-        };
-        CarWash carWash = new CarWash();
-        System.out.println("Категория легкового автомобиля: " + carWash.category(lightCar[0]));
-        System.out.println("Категория автобуса: " + carWash.category(bus[0]));
-        System.out.println("Стоимость мойки одного легкового автомобиля: " + carWash.costOneWashCar(lightCar[0]));
-        System.out.println("Стоимость мойки одного автобуса: " + carWash.costOneWashCar(bus[0]));
-        BigDecimal lightCarsCost = carWash.costForAllWashCars(lightCar);
-        BigDecimal busCost = carWash.costForAllWashCars(bus);
-        BigDecimal allCarsWashCost = lightCarsCost.add(busCost);
-        System.out.println("Общая стоимость мойки всех машин: " + allCarsWashCost);
+        int countLightCars = 4;
+        int countBusCars = 5;
+
+        Car[] cars = new Car[countLightCars + countBusCars];
+        for (int i = 0; i < 4; i++) {
+            cars[i] = new LightCar(2, 5, 1.8, true);
+        }
+
+        for (int i = countLightCars; i < countLightCars + countBusCars; i++) {
+            cars[i] = new Bus(3, 12, 2.3, 50);
+        }
+
+        CarWashing carWashing = new CarWashing();
+        System.out.println("Общая стоимость мойки всех машин: " + carWashing.wash(cars));
     }
 
     public static void ex2() {
@@ -63,28 +53,12 @@ public class Runner {
         Airplane airplane1 = new Airplane(10);
         Airplane airplane2 = new Airplane(-1);
 
-        try {
-            duck1.fly();
-        } catch (FlyException e) {
-            System.out.println("Ошибка: утка ранена");
-        }
-
-        try {
-            duck2.fly();
-        } catch (FlyException e) {
-            System.out.println("Ошибка: утка ранена");
-        }
-
-        try {
-            airplane1.fly();
-        } catch (FlyException e) {
-            System.out.println("Ошибка: пассажиров в самолете меньше 0");
-        }
-
-        try {
-            airplane2.fly();
-        } catch (FlyException e) {
-            System.out.println("Ошибка: пассажиров в самолете меньше 0");
+        for (Flyable flyable : new Flyable[]{duck1, duck2, airplane1, airplane2}) {
+            try {
+                flyable.fly();
+            } catch (FlyException e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
 
@@ -95,12 +69,11 @@ public class Runner {
         Soundable driver = new Driver();
         Soundable bird = new Bird();
 
-        Soundable[] array = {human, builder, driver, bird};
+        Soundable[] makingSound = {human, builder, driver, bird};
 
-        for (Soundable soundable : array) {
-            soundable.makeSound();
+        for (Soundable soundable : makingSound) {
+            System.out.println(soundable.makeSound());
         }
-
     }
 
     public static void ex4() {
@@ -140,46 +113,20 @@ public class Runner {
         //7.Вызвать у съеденного кролика бег, сделать так, чтобы программа НЕ закончилась с ошибкой,
         //а распечатала текст ошибки.
 
-        Tiger tiger = new Tiger(true, 300, true);
-        Wolf wolf = new Wolf(true, 50);
-        Rabbit rabbit = new Rabbit(true, 2);
-        Elephant elephant = new Elephant(true, 2000);
+        Tiger tiger = new Tiger(300);
+        Wolf wolf = new Wolf(50);
+        Rabbit rabbit = new Rabbit(2);
+        Elephant elephant = new Elephant(2000);
 
+        rabbit.run();
+        wolf.attack(rabbit);
+        tiger.attack(wolf);
+        tiger.attack(elephant);
+        elephant.run();
         try {
             rabbit.run();
-            System.out.println(rabbit.isAlive());
-        } catch (AnimalCantRunException e) {
-            e.getMessage();
-        }
-
-        try {
-            wolf.attack(rabbit);
-        } catch (AnimalCantAttackException e) {
-            e.getMessage();
-        }
-
-        try {
-            tiger.attack(wolf);
-        } catch (AnimalCantAttackException e) {
-            e.getMessage();
-        }
-
-        try {
-            tiger.attack(elephant);
-        } catch (AnimalCantAttackException e) {
-            e.getMessage();
-        }
-
-        try {
-            elephant.run();
-        } catch (AnimalCantRunException e) {
-            e.getMessage();
-        }
-
-        try {
-            rabbit.run();
-        } catch (AnimalCantRunException e) {
-            e.getMessage();
+        } catch (ActionForDeadAliveException e) {
+            System.out.println(e.getMessage());
         }
     }
 }

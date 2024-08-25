@@ -2,31 +2,23 @@ package org.javaacademy.core.homework4.ex4.structure;
 
 public abstract class Alive {
 
-    private boolean isAlive;
-    private double weight;
+    protected boolean isDead = false;
+    protected double weight;
 
-    public Alive(boolean isAlive, double weight) {
-        this.isAlive = isAlive;
+    public Alive(double weight) {
         this.weight = weight;
-    }
-
-    public boolean isAlive() {
-        return isAlive;
     }
 
     public double getWeight() {
         return weight;
     }
 
-    public void setAlive(boolean alive) {
-        isAlive = alive;
+    public void dead() {
+        this.isDead = true;
     }
 
     public void setWeight(double weight) {
         this.weight = weight;
     }
 
-    public void isDead() {
-        isAlive = false;
-    }
 }

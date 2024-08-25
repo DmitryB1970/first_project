@@ -1,10 +1,9 @@
 package org.javaacademy.core.homework4.ex3;
 
-public class Driver extends Human implements Soundable{
+public class Driver extends Human {
 
     @Override
-    public void makeSound() {
-        System.out.println("Я водитель");
+    public String makeSound() {
+        return "Я водитель";
     }
-
 }

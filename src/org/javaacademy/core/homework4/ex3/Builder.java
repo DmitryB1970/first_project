@@ -1,12 +1,9 @@
 package org.javaacademy.core.homework4.ex3;
 
-public class Builder implements Soundable{
+public class Builder extends Human {
 
     @Override
-    public void makeSound() {
-        System.out.println("Я строитель");
-        Human human = new Human();
-        human.makeSound();
-
+    public String makeSound() {
+        return "Я строитель " + super.makeSound();
     }
 }
